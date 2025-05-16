@@ -158,3 +158,33 @@ def delete_pregunta_predeterminada(pregunta_predeterminada_id: int, db: Session 
     if db_pregunta_predeterminada is None:
         raise HTTPException(status_code=404, detail="Pregunta predeterminada no encontrada")
     return db_pregunta_predeterminada
+
+# CRUD Observaciones
+@app.post("/observaciones/", response_model=schemas.Observacion, tags=["observaciones"])
+def create_observacion(observacion: schemas.ObservacionCreate, db: Session = Depends(get_db)):
+    return crud.create_observacion(db, observacion)
+
+@app.get("/observaciones/", response_model=list[schemas.Observacion], tags=["observaciones"])
+def read_observaciones(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return crud.get_observaciones(db, skip=skip, limit=limit)
+
+@app.get("/observaciones/{observacion_id}", response_model=schemas.Observacion, tags=["observaciones"])
+def read_observacion(observacion_id: int, db: Session = Depends(get_db)):
+    db_observacion = crud.get_observacion(db, observacion_id=observacion_id)
+    if db_observacion is None:
+        raise HTTPException(status_code=404, detail="Observación no encontrada")
+    return db_observacion
+
+@app.put("/observaciones/{observacion_id}", response_model=schemas.Observacion, tags=["observaciones"])
+def update_observacion(observacion_id: int, observacion: schemas.ObservacionCreate, db: Session = Depends(get_db)):
+    db_observacion = crud.update_observacion(db, observacion_id, observacion)
+    if db_observacion is None:
+        raise HTTPException(status_code=404, detail="Observación no encontrada")
+    return db_observacion
+
+@app.delete("/observaciones/{observacion_id}", response_model=schemas.Observacion, tags=["observaciones"])
+def delete_observacion(observacion_id: int, db: Session = Depends(get_db)):
+    db_observacion = crud.delete_observacion(db, observacion_id)
+    if db_observacion is None:
+        raise HTTPException(status_code=404, detail="Observación no encontrada")
+    return db_observacion

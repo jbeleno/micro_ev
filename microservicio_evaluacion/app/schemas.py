@@ -56,3 +56,15 @@ class PreguntaPredeterminada(PreguntaPredeterminadaBase):
     id_pregunta_predeterminada: int
     class Config:
         orm_mode = True
+
+class ObservacionBase(BaseModel):
+    id_pregunta: int
+    texto_observacion: str
+
+class ObservacionCreate(ObservacionBase):
+    pass
+
+class Observacion(ObservacionBase):
+    id_observacion: int
+    class Config:
+        orm_mode = True

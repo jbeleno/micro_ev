@@ -38,3 +38,9 @@ class PreguntaPredeterminada(Base):
     id_parametro_predeterminado = Column(Integer, nullable=False)
     nombre = Column(String(255), nullable=False)
     descripcion = Column(Text, nullable=False)
+
+class Observacion(Base):
+    __tablename__ = "observaciones"
+    id_observacion = Column(Integer, primary_key=True, index=True)
+    id_pregunta = Column(Integer, nullable=False)
+    texto_observacion = Column(Text, nullable=False)

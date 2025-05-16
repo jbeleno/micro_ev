@@ -119,3 +119,34 @@ def delete_pregunta_predeterminada(db: Session, pregunta_predeterminada_id: int)
         db.delete(pregunta_predeterminada)
         db.commit()
     return pregunta_predeterminada
+
+# Observaciones
+
+def get_observaciones(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Observacion).offset(skip).limit(limit).all()
+
+def get_observacion(db: Session, observacion_id: int):
+    return db.query(models.Observacion).filter(models.Observacion.id_observacion == observacion_id).first()
+
+def create_observacion(db: Session, observacion: schemas.ObservacionCreate):
+    db_observacion = models.Observacion(**observacion.dict())
+    db.add(db_observacion)
+    db.commit()
+    db.refresh(db_observacion)
+    return db_observacion
+
+def update_observacion(db: Session, observacion_id: int, observacion_update: schemas.ObservacionCreate):
+    observacion = db.query(models.Observacion).filter(models.Observacion.id_observacion == observacion_id).first()
+    if observacion:
+        for key, value in observacion_update.dict().items():
+            setattr(observacion, key, value)
+        db.commit()
+        db.refresh(observacion)
+    return observacion
+
+def delete_observacion(db: Session, observacion_id: int):
+    observacion = db.query(models.Observacion).filter(models.Observacion.id_observacion == observacion_id).first()
+    if observacion:
+        db.delete(observacion)
+        db.commit()
+    return observacion
