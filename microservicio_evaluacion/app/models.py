@@ -18,6 +18,7 @@ class ParametroPredeterminado(Base):
     id_parametro_predeterminado = Column(Integer, primary_key=True, index=True)
     nombre = Column(String(255), nullable=False)
     descripcion = Column(Text)
+    id_metodologia = Column(Integer)  # ForeignKey a metodologias.id_metodologia
 
 class Pregunta(Base):
     __tablename__ = "preguntas"

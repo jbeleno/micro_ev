@@ -70,8 +70,8 @@ def create_parametro_predeterminado(parametro_predeterminado: schemas.ParametroP
     return crud.create_parametro_predeterminado(db, parametro_predeterminado)
 
 @app.get("/parametros_predeterminados/", response_model=list[schemas.ParametroPredeterminado], tags=["parametros_predeterminados"])
-def read_parametros_predeterminados(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return crud.get_parametros_predeterminados(db, skip=skip, limit=limit)
+def read_parametros_predeterminados(skip: int = 0, limit: int = 100, id_metodologia: int = None, db: Session = Depends(get_db)):
+    return crud.get_parametros_predeterminados(db, skip=skip, limit=limit, id_metodologia=id_metodologia)
 
 @app.get("/parametros_predeterminados/{parametro_predeterminado_id}", response_model=schemas.ParametroPredeterminado, tags=["parametros_predeterminados"])
 def read_parametro_predeterminado(parametro_predeterminado_id: int, db: Session = Depends(get_db)):

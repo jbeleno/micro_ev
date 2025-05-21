@@ -19,6 +19,7 @@ class Parametro(ParametroBase):
 class ParametroPredeterminadoBase(BaseModel):
     nombre: str
     descripcion: str | None = None
+    id_metodologia: int | None = None
 
 class ParametroPredeterminadoCreate(ParametroPredeterminadoBase):
     pass

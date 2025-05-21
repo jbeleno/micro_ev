@@ -31,8 +31,11 @@ def delete_parametro(db: Session, parametro_id: int):
     return parametro
 
 # Parametros Predeterminados
-def get_parametros_predeterminados(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.ParametroPredeterminado).offset(skip).limit(limit).all()
+def get_parametros_predeterminados(db: Session, skip: int = 0, limit: int = 100, id_metodologia: int = None):
+    query = db.query(models.ParametroPredeterminado)
+    if id_metodologia is not None:
+        query = query.filter(models.ParametroPredeterminado.id_metodologia == id_metodologia)
+    return query.offset(skip).limit(limit).all()
 
 def get_parametro_predeterminado(db: Session, parametro_predeterminado_id: int):
     return db.query(models.ParametroPredeterminado).filter(models.ParametroPredeterminado.id_parametro_predeterminado == parametro_predeterminado_id).first()
